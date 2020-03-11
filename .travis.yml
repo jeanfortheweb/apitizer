@@ -1,0 +1,75 @@
+if: tag IS blank
+language: node_js
+node_js:
+  - 'lts/*'
+
+cache:
+  yarn: true
+
+before_install:
+  # install yarn
+  - export PATH=$HOME/.yarn/bin:$PATH
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+
+  # install the cc test reporter
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+  # set npm token
+  - npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+
+  # prepare git settings for lerna
+  - git config --global user.email $GITHUB_EMAIL
+  - git config --global user.name $GITHUB_USER
+  - git remote set-url origin "https://$GITHUB_TOKEN@github.com/$TRAVIS_REPO_SLUG.git"
+
+install:
+  - yarn
+
+jobs:
+  include:
+    - name: test
+      # runs only on pull requests
+      if: type = pull_request
+
+      # test all packages
+      script:
+        - yarn jest --coverage
+
+      # upload the coverage
+      after_script:
+        - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+        - ./cc-test-reporter format-coverage -t lcov ./coverage/lcov.info
+        - ./cc-test-reporter upload-coverage
+
+    - name: build
+      # runs only on non pull request branches (those who will produce releases)
+      if: tag IS blank AND type != pull_request
+
+      # compile all packages
+      script:
+        - yarn lerna run compile:cjs
+        - yarn lerna run compile:esm
+
+    - name: pre-release
+      if: tag IS blank AND branch = next AND type != pull_request
+
+      # checkout the target branch and reset
+      before_script:
+        - git checkout next
+
+      # publish a preview version
+      script:
+        - yarn lerna publish --conventional-commits --dist-tag next --canary prerelease --force-publish --no-push --no-git-tag-version --yes
+
+    - name: release
+      if: tag IS blank AND branch = master AND type != pull_request
+
+      # checkout the target branch and reset
+      before_script:
+        - git checkout master
+
+      # raise the package version and publish from git tag
+      script:
+        - yarn lerna publish --conventional-commits --yes
