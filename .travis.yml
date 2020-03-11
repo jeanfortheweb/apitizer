@@ -47,17 +47,16 @@ jobs:
       # runs only on non pull request branches (those who will produce releases)
       if: tag IS blank AND type != pull_request
 
-      # compile all packages
-      script:
-        - yarn lerna run compile:cjs
-        - yarn lerna run compile:esm
-
     - name: pre-release
       if: tag IS blank AND branch = next AND type != pull_request
 
-      # checkout the target branch and reset
       before_script:
+        # checkout the target branch and reset
         - git checkout next
+
+        # compile all packages
+        - yarn lerna run compile:cjs
+        - yarn lerna run compile:esm
 
       # publish a preview version
       script:
@@ -66,9 +65,13 @@ jobs:
     - name: release
       if: tag IS blank AND branch = master AND type != pull_request
 
-      # checkout the target branch and reset
       before_script:
-        - git checkout master
+        # checkout the target branch and reset
+        - git checkout next
+
+        # compile all packages
+        - yarn lerna run compile:cjs
+        - yarn lerna run compile:esmr
 
       # raise the package version and publish from git tag
       script:
