@@ -50,6 +50,7 @@ jobs:
       before_script:
         # checkout the target branch and reset
         - git checkout next
+        - git reset --hard
 
         # compile all packages
         - yarn lerna run compile:cjs
@@ -65,6 +66,7 @@ jobs:
       before_script:
         # checkout the target branch and reset
         - git checkout master
+        - git reset --hard
 
         # compile all packages
         - yarn lerna run compile:cjs
