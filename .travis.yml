@@ -26,6 +26,7 @@ before_install:
 
 install:
   - yarn
+  - yarn lerna bootstrap
 
 jobs:
   include:

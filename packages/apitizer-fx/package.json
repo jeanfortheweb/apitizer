@@ -3,7 +3,7 @@
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
   "description": "Effects for the delightful rest api utility",
-  "version": "0.0.1-alpha.1",
+  "version": "0.0.0",
   "license": "MIT",
   "repository": "github:jeanfortheweb/apitizer",
   "author": {
@@ -23,11 +23,10 @@
     "compile:esm": "rm -rf lib/esm && tsc --p tsconfig.esm.json"
   },
   "peerDependencies": {
-    "apitizer": "^1.0.0",
     "rxjs": "^6.5.4"
   },
   "devDependencies": {
-    "apitizer": "^1.0.0",
-    "rxjs": "^6.5.4"
+    "rxjs": "^6.5.4",
+    "apitizer": "0.0.0"
   }
 }
