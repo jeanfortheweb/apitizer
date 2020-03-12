@@ -30,7 +30,7 @@ install:
 
 jobs:
   include:
-    - name: test
+    - stage: test
       # runs only on pull requests
       if: type = pull_request
 
@@ -44,11 +44,7 @@ jobs:
         - ./cc-test-reporter format-coverage -t lcov ./coverage/lcov.info
         - ./cc-test-reporter upload-coverage
 
-    - name: build
-      # runs only on non pull request branches (those who will produce releases)
-      if: tag IS blank AND type != pull_request
-
-    - name: pre-release
+    - stage: pre-release
       if: tag IS blank AND branch = next AND type != pull_request
 
       before_script:
@@ -63,7 +59,7 @@ jobs:
       script:
         - yarn lerna publish --conventional-commits --dist-tag next --canary prerelease --force-publish --no-push --no-git-tag-version --yes
 
-    - name: release
+    - stage: release
       if: tag IS blank AND branch = master AND type != pull_request
 
       before_script:
