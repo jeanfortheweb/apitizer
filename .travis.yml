@@ -70,7 +70,7 @@ jobs:
 
         # compile all packages
         - yarn lerna run compile:cjs
-        - yarn lerna run compile:esmr
+        - yarn lerna run compile:esm
 
       # raise the package version and publish from git tag
       script:
