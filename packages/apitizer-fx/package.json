@@ -1,5 +1,5 @@
 {
-  "name": "apitizer-fx",
+  "name": "apitizer-effects",
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
   "description": "Effects for the delightful rest api utility",
@@ -23,7 +23,8 @@
     "compile:esm": "rm -rf lib/esm && tsc --p tsconfig.esm.json"
   },
   "peerDependencies": {
-    "rxjs": "^6.5.4"
+    "rxjs": "^6.5.4",
+    "apitizer": "0.0.0"
   },
   "devDependencies": {
     "rxjs": "^6.5.4",
