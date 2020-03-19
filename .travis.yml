@@ -61,7 +61,7 @@ jobs:
 
       # publish a preview version
       script:
-        - yarn lerna publish --conventional-commits --dist-tag next --canary prerelease --force-publish --no-push --no-git-tag-version --yes
+        - yarn lerna publish --conventional-commits --dist-tag next --canary prerelease --force-publish  --yes
 
     - stage: release
       if: tag IS blank AND branch = master AND type != pull_request
