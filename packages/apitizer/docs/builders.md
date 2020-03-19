@@ -11,6 +11,8 @@
 
 A chainable builder utility which allows to generate a rest api request by using semantic method chaining. The API is completely written in a pure functional fashion, always producing immutable results.
 
+    The endpoint builder can be used to create the actual request configurations, but also as a standalone to for generating restful api urls in a semantic way.
+
 ### Basic Usage
 
 Creating and using an `endpoint` is rather simple:
@@ -68,9 +70,13 @@ console.log(users.url()); // http://foo.com/v1/users
 
 ### Creating a Request
 
-When calling `get`, `post`, `put`, `patch` or `delete` on an endpoint instance, a request builder is returned. This request builder is based on
-your request intention (GET, POST, PUT, PATCH or DELETE), the url and query
-of the current endpoint, as also any pre-configuration applied using `configure` on an endpoint.
+When calling `get`, `post`, `put`, `patch` or `delete` on an endpoint instance, a request builder is returned.
+This request builder is based on:
+
+- your request intention (GET, POST, PUT, PATCH or DELETE),
+- the url
+- the query parameters of the current endpoint
+- any pre-configuration from `configure` calls are applied.
 
 To get the actual request object, just call `get` on the request builder:
 
