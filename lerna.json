@@ -1,7 +1,10 @@
 {
-  "version": "0.0.3",
+  "version": "independent",
   "npmClient": "yarn",
-  "packages": [
-    "packages/*"
-  ]
+  "packages": ["packages/*"],
+  "commands": {
+    "publish": {
+      "message": "chore(lerna): release"
+    }
+  }
 }
