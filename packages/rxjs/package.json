@@ -3,7 +3,7 @@
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
   "description": "RxJS Integration for the delightful rest api utility",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -30,8 +30,8 @@
     "rxjs": "^6.5.4"
   },
   "devDependencies": {
-    "@apitizer/endpoint": "^0.0.1",
-    "@apitizer/request": "^0.0.1",
+    "@apitizer/endpoint": "^0.0.2",
+    "@apitizer/request": "^0.0.2",
     "rxjs": "^6.5.4"
   }
 }
