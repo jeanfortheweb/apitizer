@@ -33,9 +33,6 @@ install:
 jobs:
   include:
     - stage: test
-      # runs only on pull requests
-      if: type = pull_request
-
       before_script:
         - ./cc-test-reporter before-build
 
