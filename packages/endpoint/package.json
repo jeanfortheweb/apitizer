@@ -19,7 +19,9 @@
     "typescript"
   ],
   "files": [
-    "lib"
+    "lib",
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "compile:cjs": "rm -rf lib/cjs && tsc --p tsconfig.cjs.json",
