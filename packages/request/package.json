@@ -5,6 +5,9 @@
   "description": "The delightful rest api utility",
   "version": "0.0.1",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": "github:jeanfortheweb/apitizer",
   "author": {
     "name": "Jean-Pascal 'Johnny' Hövel",
