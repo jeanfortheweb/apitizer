@@ -58,10 +58,14 @@ describe('query', () => {
   });
 });
 
-it('should produce the expected template', () => {
-  const factory = jest.fn((endpoint, a, b) => endpoint.one('a', a).one('b', b));
-  const template = endpoint('http://foo.bar').template(factory);
+describe('template', () => {
+  it('should produce the expected template', () => {
+    const factory = jest.fn((endpoint, a, b) =>
+      endpoint.one('a', a).one('b', b)
+    );
+    const template = endpoint('http://foo.bar').template(factory);
 
-  expect(template(1, 2).get()).toEqual('http://foo.bar/a/1/b/2');
-  expect(factory).toHaveBeenCalledTimes(1);
+    expect(template(1, 2).get()).toEqual('http://foo.bar/a/1/b/2');
+    expect(factory).toHaveBeenCalledTimes(1);
+  });
 });
