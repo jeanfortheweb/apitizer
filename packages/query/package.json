@@ -24,7 +24,7 @@
   "scripts": {
     "compile:cjs": "rm -rf lib/cjs && tsc --p tsconfig.cjs.json",
     "compile:esm": "rm -rf lib/esm && tsc --p tsconfig.esm.json",
-    "docs": "typedoc --excludeNotExported --plugin typedoc-plugin-markdown --exclude ./src/__tests__ --readme none --mode library --out ./docs ./src/index.ts && git add docs && git commit -m 'docs(query): auto generated api documentation'"
+    "docs:generate": "typedoc --excludeNotExported --plugin typedoc-plugin-markdown --exclude ./src/__tests__ --readme none --mode library --out ./docs ./src/index.ts"
   },
   "devDependencies": {
     "typedoc": "^0.17.0-3",

@@ -23,7 +23,7 @@
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "eslint . --ext .ts,.tsx",
-      "pre-push": "yarn tsc --noEmit && lerna run docs"
+      "pre-push": "yarn tsc --noEmit"
     }
   }
 }
