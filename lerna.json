@@ -2,9 +2,9 @@
   "version": "independent",
   "npmClient": "yarn",
   "packages": ["packages/*"],
-  "commands": {
+  "command": {
     "publish": {
-      "message": "chore(lerna): release"
+      "message": "chore(lerna): release [skip ci]"
     }
   }
 }
