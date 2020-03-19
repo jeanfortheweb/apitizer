@@ -1,11 +1,11 @@
-# @apitizer/query <!-- omit in toc -->
+# @apitizer/query
 
 The **query** package of **apitizer** aims for a chainable and flat api to generate query strings a semantic way.
 It's designed to follow functional principles.
 
 The **query** package has no dependencies and can be used as standalone utility.
 
-## Installation <!-- omit in toc -->
+## Installation
 
 ```bash
 yarn add @apitizer/query

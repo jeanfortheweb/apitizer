@@ -24,7 +24,7 @@ Defines a query builder.
 
 ▸ **clear**(): *[Query](query.md)*
 
-*Defined in [index.ts:30](https://github.com/jeanfortheweb/apitizer/blob/5085c33/packages/query/src/index.ts#L30)*
+*Defined in [index.ts:30](https://github.com/jeanfortheweb/apitizer/blob/d3b0b74/packages/query/src/index.ts#L30)*
 
 Removes all current set parameters.
 
@@ -36,7 +36,7 @@ ___
 
 ▸ **empty**(): *boolean*
 
-*Defined in [index.ts:35](https://github.com/jeanfortheweb/apitizer/blob/5085c33/packages/query/src/index.ts#L35)*
+*Defined in [index.ts:35](https://github.com/jeanfortheweb/apitizer/blob/d3b0b74/packages/query/src/index.ts#L35)*
 
 Checks if the builder contains any parameters.
 
@@ -48,7 +48,7 @@ ___
 
 ▸ **get**(): *string*
 
-*Defined in [index.ts:40](https://github.com/jeanfortheweb/apitizer/blob/5085c33/packages/query/src/index.ts#L40)*
+*Defined in [index.ts:40](https://github.com/jeanfortheweb/apitizer/blob/d3b0b74/packages/query/src/index.ts#L40)*
 
 Returns the query as a string.
 
@@ -60,7 +60,7 @@ ___
 
 ▸ **param**(`name`: string, `value`: string | undefined): *[Query](query.md)*
 
-*Defined in [index.ts:17](https://github.com/jeanfortheweb/apitizer/blob/5085c33/packages/query/src/index.ts#L17)*
+*Defined in [index.ts:17](https://github.com/jeanfortheweb/apitizer/blob/d3b0b74/packages/query/src/index.ts#L17)*
 
 Sets a single query parameter.
 Setting a parameter to undefined or null deletes the parameter.
@@ -80,7 +80,7 @@ ___
 
 ▸ **params**(`params`: Record‹string, string | undefined›): *[Query](query.md)*
 
-*Defined in [index.ts:25](https://github.com/jeanfortheweb/apitizer/blob/5085c33/packages/query/src/index.ts#L25)*
+*Defined in [index.ts:25](https://github.com/jeanfortheweb/apitizer/blob/d3b0b74/packages/query/src/index.ts#L25)*
 
 Sets a group of query parameters.
 Setting a parameter to undefined or null deletes the parameter.
