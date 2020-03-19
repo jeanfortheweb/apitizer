@@ -3,7 +3,7 @@
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
   "description": "The delightful rest api utility",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "repository": "github:jeanfortheweb/apitizer",
   "author": {
@@ -23,7 +23,7 @@
     "compile:esm": "rm -rf lib/esm && tsc --p tsconfig.esm.json"
   },
   "devDependencies": {
-    "@apitizer/endpoint": "^0.0.1"
+    "@apitizer/endpoint": "^0.0.2"
   },
   "peerDependencies": {
     "@apitizer/endpoint": "^0.0.0"
