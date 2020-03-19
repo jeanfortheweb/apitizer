@@ -1,0 +1,37 @@
+{
+  "name": "@apitizer/rxjs",
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "description": "RxJS Integration for the delightful rest api utility",
+  "version": "0.0.0",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "github:jeanfortheweb/apitizer",
+  "author": {
+    "name": "Jean-Pascal 'Johnny' Hövel",
+    "email": "jeanfortheweb@gmail.com"
+  },
+  "keywords": [
+    "restful",
+    "api",
+    "typescript"
+  ],
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "compile:cjs": "rm -rf lib/cjs && tsc --p tsconfig.cjs.json",
+    "compile:esm": "rm -rf lib/esm && tsc --p tsconfig.esm.json"
+  },
+  "peerDependencies": {
+    "@apitizer/request": "^0.0.0",
+    "rxjs": "^6.5.4"
+  },
+  "devDependencies": {
+    "@apitizer/endpoint": "^0.0.0",
+    "@apitizer/request": "0.0.0",
+    "rxjs": "^6.5.4"
+  }
+}

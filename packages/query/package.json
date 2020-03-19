@@ -1,0 +1,28 @@
+{
+  "name": "@apitizer/query",
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "description": "The Query Builder for the delightful rest api utility",
+  "version": "0.0.0",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "github:jeanfortheweb/apitizer",
+  "author": {
+    "name": "Jean-Pascal 'Johnny' Hövel",
+    "email": "jeanfortheweb@gmail.com"
+  },
+  "keywords": [
+    "restful",
+    "api",
+    "typescript"
+  ],
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "compile:cjs": "rm -rf lib/cjs && tsc --p tsconfig.cjs.json",
+    "compile:esm": "rm -rf lib/esm && tsc --p tsconfig.esm.json"
+  }
+}
