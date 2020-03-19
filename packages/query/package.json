@@ -23,6 +23,11 @@
   ],
   "scripts": {
     "compile:cjs": "rm -rf lib/cjs && tsc --p tsconfig.cjs.json",
-    "compile:esm": "rm -rf lib/esm && tsc --p tsconfig.esm.json"
+    "compile:esm": "rm -rf lib/esm && tsc --p tsconfig.esm.json",
+    "docs": "typedoc --excludeNotExported --plugin typedoc-plugin-markdown --out ./docs --entryPoint index --exclude ./src/__tests__ --readme none --mode library ./src/index.ts"
+  },
+  "devDependencies": {
+    "typedoc": "^0.17.0-3",
+    "typedoc-plugin-markdown": "^2.2.17"
   }
 }
