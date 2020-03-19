@@ -18,7 +18,7 @@
 
 ▸ **query**(`params`: Params): *[Query](interfaces/query.md)*
 
-*Defined in [index.ts:67](https://github.com/jeanfortheweb/apitizer/blob/d3b0b74/packages/query/src/index.ts#L67)*
+*Defined in [index.ts:67](https://github.com/jeanfortheweb/apitizer/blob/35edc53/packages/query/src/index.ts#L67)*
 
 Creates a new query object.
 
