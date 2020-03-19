@@ -19,15 +19,13 @@
     "typescript"
   ],
   "files": [
-    "lib",
-    "README.md",
-    "LICENSE"
+    "lib"
   ],
   "scripts": {
     "compile:cjs": "rm -rf lib/cjs && tsc --p tsconfig.cjs.json",
     "compile:esm": "rm -rf lib/esm && tsc --p tsconfig.esm.json"
   },
-  "dependencies": {
+  "devDependencies": {
     "@apitizer/query": "^0.0.3"
   },
   "peerDependencies": {
