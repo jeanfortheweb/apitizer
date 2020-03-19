@@ -27,6 +27,8 @@ before_install:
 install:
   - yarn
   - yarn lerna bootstrap
+  - yarn lerna run compile:cjs
+  - yarn lerna run compile:esm
 
 jobs:
   include:
@@ -55,10 +57,6 @@ jobs:
         - git checkout next
         - git reset --hard
 
-        # compile all packages
-        - yarn lerna run compile:cjs
-        - yarn lerna run compile:esm
-
       # publish a preview version
       script:
         - yarn lerna publish --conventional-commits --dist-tag next --canary prerelease --force-publish  --yes
@@ -70,10 +68,6 @@ jobs:
         # checkout the target branch and reset
         - git checkout master
         - git reset --hard
-
-        # compile all packages
-        - yarn lerna run compile:cjs
-        - yarn lerna run compile:esm
 
       # raise the package version and publish from git tag
       script:
