@@ -4,10 +4,6 @@ import { ajax, AjaxRequest } from 'rxjs/ajax';
 import { map, mergeMap } from 'rxjs/operators';
 import { Request, RequestConfiguration } from '@apitizer/request';
 
-export interface MaybeBlueprint<Resource, Data> {
-  (...args: any): Request<Resource, Data>;
-}
-
 export interface Blueprint<Args extends any[], Resource = any> {
   (...args: Args): Observable<Resource>;
 }
@@ -37,9 +33,7 @@ interface FetchFacade {
     OutputResource,
     OutputData
   >(
-    request:
-      | Request<InputResource, InputData>
-      | MaybeBlueprint<InputResource, InputData>,
+    request: Request<InputResource, InputData>,
     factory: BlueprintFactory<
       Args,
       InputResource,
