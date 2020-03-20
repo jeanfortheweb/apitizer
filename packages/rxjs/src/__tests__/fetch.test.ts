@@ -48,7 +48,7 @@ describe('blueprint', () => {
     const method = Method.GET;
     const foo = fetch.blueprint(
       request(endpoint(url())),
-      (request$, data: any) =>
+      (request$, data: unknown) =>
         request$.pipe(map(request => request.method(method).data(data)))
     );
 
