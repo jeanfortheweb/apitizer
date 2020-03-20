@@ -238,7 +238,7 @@ function create<Resource, Data = Resource>(
 
 function alias(method: Method) {
   return function<Resource, Data = Resource>(
-    endpoint: Endpoint = api(''),
+    endpoint: Endpoint<Resource, Data> = api(''),
     configuration: RequestConfiguration<Resource, Data> = defaults()
   ): Request<Resource, Data> {
     return create(endpoint, set(configuration, 'method', method));
