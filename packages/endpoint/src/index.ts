@@ -4,20 +4,24 @@ import { query as _query, Query } from '@apitizer/query';
 export type MaybeCallback<T> = T | Callback<T>;
 export type Callback<T> = (value: T) => T;
 
-export interface Template<Args extends any[], Resource = any, Data = Resource> {
+export interface Blueprint<
+  Args extends any[],
+  Resource = any,
+  Data = Resource
+> {
   (...args: Args): Endpoint<Resource, Data>;
 }
 
-export interface Factory<
+export interface BlueprintFactory<
   Args extends any[],
-  SourceResource,
-  SourceData,
-  TemplateResource,
-  TemplateData
+  InputResource,
+  InputData,
+  OutputResource,
+  OutputData
 > {
-  (endpoint: Endpoint<SourceResource, SourceData>, ...args: Args): Endpoint<
-    TemplateResource,
-    TemplateData
+  (endpoint: Endpoint<InputResource, InputData>, ...args: Args): Endpoint<
+    OutputResource,
+    OutputData
   >;
 }
 
@@ -64,19 +68,30 @@ export interface Endpoint<Resource = any, Data = Resource> {
    * @param query Query or callback
    */
   query(query: MaybeCallback<Query>): Endpoint<Resource, Data>;
+}
 
-  /**
-   * Creates a template function to create a deeper endpoint based on certain parameters.
-   *
-   * @param factory Factory.
-   */
-  template<
-    TemplateResource = Resource,
-    TemplateData = Data,
-    Args extends any[] = any[]
+export interface EndpointFacade {
+  <Resource = any, Data = Resource>(url: string, query?: Query): Endpoint<
+    Resource,
+    Data
+  >;
+
+  blueprint<
+    Args extends any[],
+    InputResource,
+    InputData,
+    OutputResource,
+    OutputData
   >(
-    factory: Factory<Args, Resource, Data, TemplateResource, TemplateData>
-  ): Template<Args, TemplateResource, TemplateData>;
+    endpoint: Endpoint<InputResource, InputData>,
+    factory: BlueprintFactory<
+      Args,
+      InputResource,
+      InputData,
+      OutputResource,
+      OutputData
+    >
+  ): Blueprint<Args, OutputResource, OutputData>;
 }
 
 /**
@@ -86,7 +101,7 @@ export interface Endpoint<Resource = any, Data = Resource> {
  * @param url URL of the endpoint.
  * @param settings Initial settings.
  */
-export function endpoint<Resource = any, Data = Resource>(
+export function create<Resource = any, Data = Resource>(
   url: string,
   query: Query = _query()
 ): Endpoint<Resource, Data> {
@@ -94,14 +109,33 @@ export function endpoint<Resource = any, Data = Resource>(
     get: (urlOnly = false) =>
       urlOnly || query.empty() ? url : [url, query.get()].join('?'),
 
-    many: path => endpoint([url, path].join('/'), query),
+    many: path => create([url, path].join('/'), query),
 
-    one: (path, id) => endpoint([url, path, id].join('/'), query),
+    one: (path, id) => create([url, path, id].join('/'), query),
 
     query: value =>
-      endpoint(url, typeof value === 'function' ? value(query) : value),
-
-    template: factory => (...args: any[]): any =>
-      factory(endpoint(url, query), ...(args as any))
+      create(url, typeof value === 'function' ? value(query) : value)
   });
 }
+
+function blueprint<
+  Args extends any[],
+  InputResource,
+  InputData,
+  OutputResource,
+  OutputData
+>(
+  endpoint: Endpoint<InputResource, InputData>,
+  factory: BlueprintFactory<
+    Args,
+    InputResource,
+    InputData,
+    OutputResource,
+    OutputData
+  >
+): Blueprint<Args, OutputResource, OutputData> {
+  return (...args: Args): Endpoint<OutputResource, OutputData> =>
+    factory(endpoint, ...args);
+}
+
+export const endpoint: EndpointFacade = Object.assign(create, { blueprint });
