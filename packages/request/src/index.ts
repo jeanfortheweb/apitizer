@@ -179,7 +179,7 @@ function set<Property extends keyof RequestConfiguration>(
 }
 
 function create<Resource, Data = Resource>(
-  endpoint: Endpoint = api(''),
+  endpoint: Endpoint<Resource, Data> = api(''),
   configuration: RequestConfiguration<Resource, Data> = defaults()
 ): Request<Resource, Data> {
   return Object.freeze<Request<Resource, Data>>({
