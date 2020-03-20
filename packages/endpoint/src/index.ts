@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { query as _query, Query } from '@apitizer/query';
 
-export type MaybeCallback<T> = T | Callback<T>;
-export type Callback<T> = (value: T) => T;
+type MaybeCallback<T> = T | Callback<T>;
+type Callback<T> = (value: T) => T;
 
 export interface Template<Args extends any[], Resource = any, Data = Resource> {
   (...args: Args): Endpoint<Resource, Data>;
@@ -37,9 +37,44 @@ export interface Endpoint<Resource = any, Data = Resource> {
    *
    * @param path Path to the deeper endpoint.
    */
+  many(path: string): Endpoint<Resource[], Data>;
+
+  /**
+   * Creates a deeper nested endpoint based on the current endpoint.
+   *
+   * @param path Path to the deeper endpoint.
+   */
+  many<InnerResource = Resource>(path: string): Endpoint<InnerResource[], Data>;
+
+  /**
+   * Creates a deeper nested endpoint based on the current endpoint.
+   *
+   * @param path Path to the deeper endpoint.
+   */
   many<InnerResource = Resource, InnerData = Data>(
     path: string
   ): Endpoint<InnerResource[], InnerData>;
+
+  /**
+   * Creates a deeper nested endpoint based on the current endpoint,
+   * pointing to a single identifiable resource.
+   *
+   * @param path Path to the deeper endpoint.
+   * @param id ID of the resource.
+   */
+  one(path: string, id: number | string): Endpoint<Resource, Data>;
+
+  /**
+   * Creates a deeper nested endpoint based on the current endpoint,
+   * pointing to a single identifiable resource.
+   *
+   * @param path Path to the deeper endpoint.
+   * @param id ID of the resource.
+   */
+  one<InnerResource = Resource>(
+    path: string,
+    id: number | string
+  ): Endpoint<InnerResource, Data>;
 
   /**
    * Creates a deeper nested endpoint based on the current endpoint,
@@ -84,7 +119,7 @@ export interface Endpoint<Resource = any, Data = Resource> {
  *
  * @see Endpoint
  * @param url URL of the endpoint.
- * @param settings Initial settings.
+ * @param query Initial query.
  */
 export function endpoint<Resource = any, Data = Resource>(
   url: string,
@@ -94,9 +129,10 @@ export function endpoint<Resource = any, Data = Resource>(
     get: (urlOnly = false) =>
       urlOnly || query.empty() ? url : [url, query.get()].join('?'),
 
-    many: path => endpoint([url, path].join('/'), query),
+    many: (path: string) => endpoint([url, path].join('/'), query),
 
-    one: (path, id) => endpoint([url, path, id].join('/'), query),
+    one: (path: string, id: number | string) =>
+      endpoint([url, path, id].join('/'), query),
 
     query: value =>
       endpoint(url, typeof value === 'function' ? value(query) : value),
