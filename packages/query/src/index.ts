@@ -1,7 +1,7 @@
-export type MaybeParams = Record<string, string | undefined>;
-export type Params = Record<string, string>;
-export type MaybeParamPair = [string, string | undefined];
-export type ParamPair = [string, string];
+type MaybeParams = Record<string, string | undefined>;
+type Params = Record<string, string>;
+type MaybeParamPair = [string, string | undefined];
+type ParamPair = [string, string];
 
 /**
  * Defines a query builder.
@@ -58,6 +58,12 @@ function encode([key, value]: ParamPair): string {
   return [encodeURIComponent(key), encodeURIComponent(value)].join('=');
 }
 
+/**
+ * Creates a new query object.
+ *
+ * @see Query
+ * @param params Initial params.
+ */
 export function query(params: Params = {}): Query {
   return Object.freeze<Query>({
     param: (name: string, value: string | undefined): Query =>

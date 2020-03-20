@@ -1,7 +1,48 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Observable, of } from 'rxjs';
 import { ajax, AjaxRequest } from 'rxjs/ajax';
 import { map, mergeMap } from 'rxjs/operators';
 import { Request, RequestConfiguration } from '@apitizer/request';
+
+export interface Blueprint<Args extends any[], Resource = any> {
+  (...args: Args): Observable<Resource>;
+}
+
+export interface BlueprintFactory<
+  Args extends any[],
+  InputResource,
+  InputData,
+  OutputResource,
+  OutputData
+> {
+  (
+    request$: Observable<Request<InputResource, InputData>>,
+    ...args: Args
+  ): Observable<Request<OutputResource, OutputData>>;
+}
+
+interface FetchFacade {
+  <Resource, Data = Resource>(
+    request: Request<Resource, Data> | Observable<Request<Resource, Data>>
+  ): Observable<Resource>;
+
+  blueprint<
+    Args extends any[],
+    InputResource,
+    InputData,
+    OutputResource,
+    OutputData
+  >(
+    request: Request<InputResource, InputData>,
+    factory: BlueprintFactory<
+      Args,
+      InputResource,
+      InputData,
+      OutputResource,
+      OutputData
+    >
+  ): Blueprint<Args, OutputResource>;
+}
 
 /**
  * Transforms the apitizer request configuration into a rxjs ajax request.
@@ -23,7 +64,7 @@ function transform(configuration: RequestConfiguration): AjaxRequest {
  *
  * @param request Request configuration.
  */
-export function fetch<Resource, Data = Resource>(
+function create<Resource, Data = Resource>(
   request: Request<Resource, Data> | Observable<Request<Resource, Data>>
 ): Observable<Resource> {
   return (request instanceof Observable ? request : of(request)).pipe(
@@ -31,3 +72,27 @@ export function fetch<Resource, Data = Resource>(
     map(({ response }) => response)
   );
 }
+
+function blueprint<
+  Args extends any[],
+  InputResource,
+  InputData,
+  OutputResource,
+  OutputData
+>(
+  request: Request<InputResource, InputData>,
+  factory: BlueprintFactory<
+    Args,
+    InputResource,
+    InputData,
+    OutputResource,
+    OutputData
+  >
+): Blueprint<Args, OutputResource> {
+  return (...args: Args): Observable<OutputResource> =>
+    create(factory(of(request), ...(args as Args)));
+}
+
+export const fetch: FetchFacade = Object.assign(create, {
+  blueprint
+});
