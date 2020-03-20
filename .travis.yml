@@ -56,6 +56,7 @@ jobs:
 
       # publish a preview version
       script:
+        - yarn lerna run compile:docs
         - yarn lerna publish --conventional-commits --dist-tag next --canary prerelease --force-publish  --yes
 
     - stage: release
@@ -68,4 +69,5 @@ jobs:
 
       # raise the package version and publish from git tag
       script:
+        - yarn lerna run compile:docs
         - yarn lerna publish --conventional-commits --yes
