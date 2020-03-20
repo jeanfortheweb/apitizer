@@ -23,7 +23,6 @@
   ],
   "scripts": {
     "compile:cjs": "rm -rf lib/cjs && tsc --p tsconfig.cjs.json",
-    "compile:esm": "rm -rf lib/esm && tsc --p tsconfig.esm.json",
-    "docs:generate": "typedoc --excludeNotExported --exclude ./src/__tests__ --readme none --mode library --out ./docs ./src/index.ts"
+    "compile:esm": "rm -rf lib/esm && tsc --p tsconfig.esm.json"
   }
 }

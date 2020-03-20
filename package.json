@@ -16,14 +16,8 @@
     "prettier": "^1.19.1",
     "semantic-release": "^15.13.27",
     "ts-jest": "^24.0.2",
-    "typedoc": "^0.17.0-3",
     "typescript": "^3.7.5",
     "xhr-mock": "^2.5.1"
-  },
-  "scripts": {
-    "compile:cjs": "rm -rf lib/cjs && tsc --p tsconfig.cjs.json",
-    "compile:esm": "rm -rf lib/esm && tsc --p tsconfig.esm.json",
-    "compile:docs": "typedoc --excludeNotExported --exclude ./src/__tests__ --readme none --mode library --out ./docs ./src/index.ts"
   },
   "husky": {
     "hooks": {
