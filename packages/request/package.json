@@ -23,7 +23,8 @@
   ],
   "scripts": {
     "compile:cjs": "rm -rf lib/cjs && tsc --p tsconfig.cjs.json",
-    "compile:esm": "rm -rf lib/esm && tsc --p tsconfig.esm.json"
+    "compile:esm": "rm -rf lib/esm && tsc --p tsconfig.esm.json",
+    "compile:docs": "typedoc --excludeNotExported --exclude ./src/__tests__ --readme none --mode library --out ./docs ./src/index.ts"
   },
   "devDependencies": {
     "@apitizer/endpoint": "^0.0.3"
