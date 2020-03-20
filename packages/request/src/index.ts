@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Endpoint, endpoint as api } from '@apitizer/endpoint';
 
-export type MaybeHeaders = Record<string, string | undefined>;
-export type Headers = Record<string, string>;
-export type MaybeHeaderPair = [string, string | undefined];
-export type HeaderPair = [string, string];
+type MaybeHeaders = Record<string, string | undefined>;
+type Headers = Record<string, string>;
+type MaybeHeaderPair = [string, string | undefined];
+type HeaderPair = [string, string];
 
 /**
  * Defines an abstract shape of a request configuration.
@@ -133,6 +133,37 @@ export interface Request<Resource = any, Data = Resource> {
     transformer: (configuration: RequestConfiguration<Resource, Data>) => T
   ): T;
 }
+export interface RequestFactory {
+  <Resource, Data>(
+    endpoint?: Endpoint<Resource, Data>,
+    configration?: RequestConfiguration<Resource, Data>
+  ): Request<Resource, Data>;
+
+  get<Resource, Data>(
+    endpoint?: Endpoint<Resource, Data>,
+    configration?: RequestConfiguration<Resource, Data>
+  ): Request<Resource, Data>;
+
+  post<Resource, Data>(
+    endpoint?: Endpoint<Resource, Data>,
+    configration?: RequestConfiguration<Resource, Data>
+  ): Request<Resource, Data>;
+
+  put<Resource, Data>(
+    endpoint?: Endpoint<Resource, Data>,
+    configration?: RequestConfiguration<Resource, Data>
+  ): Request<Resource, Data>;
+
+  patch<Resource, Data>(
+    endpoint?: Endpoint<Resource, Data>,
+    configration?: RequestConfiguration<Resource, Data>
+  ): Request<Resource, Data>;
+
+  delete<Resource, Data>(
+    endpoint?: Endpoint<Resource, Data>,
+    configration?: RequestConfiguration<Resource, Data>
+  ): Request<Resource, Data>;
+}
 
 function hasValue(pair: MaybeHeaderPair): pair is HeaderPair {
   return typeof pair[1] === 'string';
@@ -245,7 +276,10 @@ function alias(method: Method) {
   };
 }
 
-export const request = Object.assign(create, {
+/**
+ * Create a new request object.
+ */
+export const request: RequestFactory = Object.assign(create, {
   get: alias(Method.GET),
   post: alias(Method.POST),
   put: alias(Method.PUT),

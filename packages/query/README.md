@@ -19,7 +19,7 @@ npm install  @apitizer/query
 
 ## API Documentation
 
-You can see the technical api documentation [here](./docs/README.md)
+You can see the technical api documentation [here](./docs/index.html)
 
 ## Examples
 
